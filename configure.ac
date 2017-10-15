@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([Doggy], [0.1], [eleven17chen@163.com])
 #AM_CONFIG_HEADER(config.h)
-AC_CONFIG_SRCDIR([hello.cpp])
+AC_CONFIG_SRCDIR([src/hello.cpp])
 AM_INIT_AUTOMAKE
 
 AC_PROG_CXX
