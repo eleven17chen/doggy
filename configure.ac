@@ -8,6 +8,7 @@ AC_CONFIG_SRCDIR([src/hello.cpp])
 AM_INIT_AUTOMAKE
 
 AC_PROG_CXX
+AC_PROG_CC
 
 # Checks for programs.
 
@@ -21,5 +22,6 @@ AC_PROG_CXX
 
 AC_OUTPUT([Makefile
            src/Makefile
+           src/computor/Makefile
            ])
 
