@@ -3,7 +3,7 @@
 import logging
 # from global_var import *
 
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.INFO
 
 LOGGERS = {}
 

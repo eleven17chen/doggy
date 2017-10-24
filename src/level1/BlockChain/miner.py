@@ -24,14 +24,14 @@ class Miner(threading.Thread):
 
     def run(self):
         # do dig
-        self._log.log().info('Starting miner')
+        self._log.log().debug('Starting miner')
         self.dig()
 
     def dig(self):
         var = 1
         while (var == 1):
             self._dig_times = self._dig_times + 1
-            self._log.log().info("miner[" + str(self._id) + "]: digging " + str(self._dig_times))
+            self._log.log().debug("miner[" + str(self._id) + "]: digging " + str(self._dig_times))
             if (self._stop):
                 break;
             curr_chain = self._work_chain
@@ -62,7 +62,7 @@ class Miner(threading.Thread):
         #     if (chain.get_len() - self._work_chain.get_len() > 1):
         #         self._work_chain = block_chain
 
-        self._log.log().info("miner[" + str(self._id) + "]: receive a block chain ")
+        self._log.log().debug("miner[" + str(self._id) + "]: receive a block chain ")
         if (block_chain.get_len() - self._work_chain.get_len() > 1):
             self._work_chain = block_chain
 

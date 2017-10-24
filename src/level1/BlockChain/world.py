@@ -1,6 +1,8 @@
 # -- coding: utf-8 --
 
 import time
+import os
+import sys
 from miner import Miner
 from block_chain import Block
 
@@ -28,6 +30,12 @@ class World(object):
             miner = self._miners[key]
             miner.receive_block_chain(block_chain)
 
+    def print_world(self):
+        var = 1
+        while (var == 1):
+            print("num miners: %s")%(str(len(self._miners)))
+            time.sleep(1)
+            os.system('clear')
 
 if __name__ == '__main__':
     world = World()
@@ -40,6 +48,8 @@ if __name__ == '__main__':
     world.reg_miner(m1)
     world.reg_miner(m2)
     world.reg_miner(m3)
+
+    world.print_world()
 
     time.sleep(15)
 
