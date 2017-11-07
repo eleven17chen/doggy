@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.69])
+AC_PREREQ([2.63])
 AC_INIT([Doggy], [0.1], [eleven17chen@163.com])
 #AM_CONFIG_HEADER(config.h)
 AC_CONFIG_SRCDIR([src/hello.cpp])
@@ -22,6 +22,5 @@ AC_PROG_CC
 
 AC_OUTPUT([Makefile
            src/Makefile
-           src/computor/Makefile
            ])
 
