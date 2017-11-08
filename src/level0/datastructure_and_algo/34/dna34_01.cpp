@@ -2,6 +2,23 @@
 #include <math.h>
 #include <assert.h>
 
+/*
+Answer:
+Found a truncatable prime: 23
+Found a truncatable prime: 37
+Found a truncatable prime: 53
+Found a truncatable prime: 73
+Found a truncatable prime: 313
+Found a truncatable prime: 317
+Found a truncatable prime: 373
+Found a truncatable prime: 797
+Found a truncatable prime: 3137
+Found a truncatable prime: 3797
+Found a truncatable prime: 739397
+SUM = 748317
+
+*/
+
 #define DEBUG_PRINT(format, ...) printf((format), ##__VA_ARGS__)
 
 void test();
@@ -10,7 +27,6 @@ bool is_truncatable_prime(int val);
 bool is_double_truncatable_prime(int val);
 void sum_truncatable_prime();
 int reverse(int val);
-
 
 int main()
 {
@@ -49,25 +65,6 @@ void test()
     b = is_truncatable_prime(79);
     assert(b == false);
 
-/*
-    b = is_double_truncatable_prime(32);
-    assert(b == false);
-    b = is_double_truncatable_prime(3797);
-    assert(b == true);
-    b = is_double_truncatable_prime(97);
-    assert(b == false);
-
-    int val = 0;
-    val = reverse(1234);
-    assert(val == 4321);
-    val = reverse(0);
-    assert(val == 0);
-    val = reverse(4);
-    assert(val == 4);
-    val = reverse(1230);
-    assert(val == 321);
-*/
-
 }
 
 void sum_truncatable_prime()
@@ -91,35 +88,8 @@ void sum_truncatable_prime()
     return;
 }
 
-/*
-int reverse(int val)
-{
-    assert(val >= 0);
-    int retval = 0;
-    while (val > 0) 
-    {
-        retval *= 10;
-        retval += val % 10;
-        val /= 10;
-    }
-    return retval;
-}
-
 // 3797 -> 379 -> 37 -> 3
 // 3797 -> 797 -> 97 -> 7
-bool is_double_truncatable_prime(int val)
-{
-    bool ret = false;
-    if (is_truncatable_prime(val) && is_truncatable_prime(reverse(val)))
-    {
-        printf("Found a truncatable prime: %d\n", val);
-        ret = true;
-    }
-    return ret;
-}
-*/
-
-// 3797 -> 379 -> 37 -> 3
 bool is_truncatable_prime(int val)
 {
     bool ret = false;
