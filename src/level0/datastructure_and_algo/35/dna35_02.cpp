@@ -2,10 +2,10 @@
 #include <math.h>
 
 // Max count = 16, hit perimeter = 840
-// Total compute times 82834499, N = 1000
+// Total compute times 41541750, N = 1000
 
 // Max count = 40, hit perimeter = 9240
-// Total compute times 83283344999, N = 10000
+// Total compute times 41654167500, N = 10000
 
 long long compute_count = 0;
 
@@ -41,7 +41,7 @@ int find_solution(int perimeter)
     int half = (int)(perimeter / 2);
     for (int a = 1; a < half; a++)
     {
-        for (int b = 1; b < half; b++)
+        for (int b = half - a; b < half; b++)
         {
             compute_count++;
             int c = perimeter - a - b;
