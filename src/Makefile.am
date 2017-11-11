@@ -3,7 +3,7 @@ dna_programs=dna33_01 dna34_01 dna35_01 dna35_02 dna35_03 dna36_01 dna36_02
 
 af_programs=af171110_01
 
-myalgo_programs=lockfree_queue
+myalgo_programs=lockfree_queue spinlock
 
 noinst_PROGRAMS=doggy Hello_C $(dna_programs) $(af_programs) $(myalgo_programs)
 
@@ -23,5 +23,9 @@ af171110_01_SOURCES=level0/algorithm_fan/20171110/af171110_01.cpp
 
 lockfree_queue_SOURCES=level0/myalgo/queue/lockfree_queue.cpp
 lockfree_queue_LDFLAGS= -pthread
+
+spinlock_SOURCES=level0/myalgo/lock/spinlock.cpp
+spinlock_LDFLAGS= -pthread
+
 
 

@@ -105,6 +105,16 @@ public:
     }
 
     bool is_empty() { return _head->_next == NULL; }
+    long long len() 
+    { 
+        long long size = 0;
+        Node *current = _head;
+        while (current = current->_next)
+        {
+            size++;
+        }
+        return size;
+    }
 private:
     // dummy不可能出队
     Node *_dummy;
@@ -122,12 +132,23 @@ int main()
 //                 TEST CODE BEGIN                   //
 ///////////////////////////////////////////////////////
 
+void test1();
+void test2();
+
 void test()
 {
+    test2();
+}
+
+void test1()
+{
     Queue<int> q;
+
     q.enqueue(10);
     q.enqueue(20);
     q.enqueue(30);
+
+    printf("queue len: %lld\n", q.len());
 
     while (!q.is_empty())
     {
@@ -138,7 +159,6 @@ void test()
     }
 
 }
-
 
 class Timer
 {
@@ -172,7 +192,7 @@ private:
 
 Queue<int> g_queue;
 #define THREAD_COUNT 4
-#define ENQUEUE_COUNT 100000
+#define ENQUEUE_COUNT 1000000
 
 void* enque_thread(void *arg);
 
@@ -194,6 +214,8 @@ void test2()
             (void)pthread_join(ts[loop], NULL);
         }
     }
+
+    printf("g_queue len: %lld\n", g_queue.len());
 
     // 多个线程并发出队，最后看出队长度是否正确。
 
