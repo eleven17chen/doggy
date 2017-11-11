@@ -1,6 +1,6 @@
 /*
 
-g++ -g -o lockfree_queue lockfree_queue.cpp
+g++ -pthread -g -o lockfree_queue lockfree_queue.cpp
 
 需求。
 线程安全的无锁队列，先入先出。
@@ -133,11 +133,14 @@ int main()
 ///////////////////////////////////////////////////////
 
 void test1();
-void test2();
+void test_enqueue();
+void test_dequeue();
+
 
 void test()
 {
-    test2();
+    test_enqueue();
+    test_dequeue();
 }
 
 void test1()
@@ -194,18 +197,19 @@ Queue<int> g_queue;
 #define THREAD_COUNT 4
 #define ENQUEUE_COUNT 1000000
 
-void* enque_thread(void *arg);
+void* enqueue_thread(void *arg);
+void* dequeue_thread(void *arg);
 
-void test2()
+void test_enqueue()
 {
-
+    printf("Testing enqueue\n");
     // 多个线程并发入队，最后看队列的长度是否正确。
     {
         Timer enq_timer;
         pthread_t ts[THREAD_COUNT];
         for (int loop = 0; loop < THREAD_COUNT; loop++)
         {
-            int ret = pthread_create(&ts[loop], NULL, enque_thread, NULL);
+            int ret = pthread_create(&ts[loop], NULL, enqueue_thread, NULL);
             assert(ret >= 0);
         }
         
@@ -222,11 +226,65 @@ void test2()
     // 并发读写怎么设计？
 }
 
-void* enque_thread(void *arg)
+void test_dequeue()
+{
+    printf("Testing dequeue\n");
+
+    int *dequeue_buf[THREAD_COUNT];
+
+    for (int xx = 0; xx < THREAD_COUNT; ++xx)
+    {
+        dequeue_buf[xx] = new int[ENQUEUE_COUNT];
+    }
+
+    // 多个线程并发出队，最后看出队的长度是否正确。
+    // 首先调用
+    {
+        Timer deq_timer;
+        pthread_t ts[THREAD_COUNT];
+        
+
+        for (int loop = 0; loop < THREAD_COUNT; loop++)
+        {
+            int ret = pthread_create(&ts[loop], NULL, dequeue_thread, dequeue_buf[loop]);
+            assert(ret >= 0);
+        }
+
+        for (int loop = 0; loop < THREAD_COUNT; loop++)
+        {
+            (void)pthread_join(ts[loop], NULL);
+        }
+    }
+
+    long long sum = 0;
+    for (int loop = 0; loop < THREAD_COUNT; loop++)
+    {
+        for (int validx = 0; validx < ENQUEUE_COUNT; validx++)
+        {
+            sum += dequeue_buf[loop][validx];
+        }
+    }
+
+    printf("Dequeue sum is : %lld\n", sum);
+}
+
+void* enqueue_thread(void *arg)
 {
     for (int loop = 0; loop < ENQUEUE_COUNT; ++loop)
     {
-        g_queue.enqueue(loop);
+        g_queue.enqueue(loop+1);
+    }
+}
+
+void* dequeue_thread(void *arg)
+{
+    int *buf = (int*)arg;
+    for (int loop = 0; loop < ENQUEUE_COUNT; ++loop)
+    {
+        int val = 0;
+        bool ret = g_queue.dequeue(val);
+        assert(ret && val >= 0);
+        buf[loop] = val;
     }
 }
 
