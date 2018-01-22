@@ -1,6 +1,6 @@
 aclocal
 autoconf
 automake --add-missing
-./configure
+./configure --enable-debug
 make 
 

@@ -20,6 +20,18 @@ AC_PROG_CC
 
 # Checks for library functions.
 
+AC_ARG_ENABLE(debug,
+[ --enable-debug
+          enable debug build]
+[ enable_debug=$enableval ] ,
+[debug_build=yes])
+
+if test x"$enable_debug" = x"yes"
+then
+    CFLAGS=" -g -Wall -O0 "
+    CXXFLAGS=" -g -Wall -O0 "
+fi
+
 AC_OUTPUT([Makefile
            src/Makefile
            ])
